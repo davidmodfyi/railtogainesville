@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rail to Gainesville</title>
+<title>Rail to Gainesville — Bring Brightline North</title>
+<meta name="description" content="Join the movement to extend Brightline high-speed rail from Orlando to Gainesville, Florida. Sign up to show demand.">
+<meta property="og:title" content="Rail to Gainesville — Bring Brightline North">
+<meta property="og:description" content="High-speed rail from Orlando to Gainesville in about an hour. No traffic. No tolls. Just 115 miles of track.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://railtogainesville.org">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -53,13 +58,14 @@
     height: 60px;
   }
   .nav-logo {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--green);
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
-  .nav-logo span { color: var(--text); }
+  .nav-logo img {
+    height: 36px;
+    width: auto;
+  }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-links a {
     font-size: 0.85rem;
@@ -159,59 +165,11 @@
     position: relative;
     aspect-ratio: 4/3;
   }
-  /* Photo placeholder system */
-  .photo {
+  .hero-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-  }
-  .photo-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.85rem;
-    color: #fff;
-    position: relative;
-  }
-  .photo-placeholder .ph-label {
-    background: rgba(0,0,0,0.4);
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .photo-placeholder .ph-desc {
-    font-size: 0.85rem;
-    max-width: 280px;
-    line-height: 1.4;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-  }
-  .ph-train {
-    background: linear-gradient(135deg, #3a7bd5 0%, #1a5276 60%, #0e3d54 100%);
-  }
-  .ph-interior {
-    background: linear-gradient(135deg, #e8c170 0%, #c49a3a 50%, #8b6914 100%);
-  }
-  .ph-traffic {
-    background: linear-gradient(135deg, #c0392b 0%, #96281b 60%, #6b1c13 100%);
-  }
-  .ph-campus {
-    background: linear-gradient(135deg, #27ae60 0%, #1e8449 50%, #145a32 100%);
-  }
-  .ph-nature {
-    background: linear-gradient(135deg, #52b788 0%, #2d6a4f 50%, #1b4332 100%);
-  }
-  .ph-ocala {
-    background: linear-gradient(135deg, #87CEEB 0%, #4a90a4 50%, #2c6e7a 100%);
   }
 
   /* ===== CONTRAST STRIP ===== */
@@ -241,9 +199,15 @@
     border-radius: 16px;
     overflow: hidden;
     position: relative;
-  }
-  .contrast-card .photo-placeholder {
     min-height: 320px;
+  }
+  .contrast-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    inset: 0;
   }
   .contrast-card .card-overlay {
     position: absolute;
@@ -252,6 +216,7 @@
     right: 0;
     padding: 1.5rem;
     background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    z-index: 2;
   }
   .contrast-card .card-time {
     font-family: 'Source Serif 4', serif;
@@ -276,6 +241,113 @@
     color: var(--text-muted);
     font-style: italic;
   }
+
+  /* ===== DESTINATIONS CAROUSEL ===== */
+  .destinations {
+    padding: 4rem 0 4rem 0;
+    background: var(--warm-white);
+    overflow: hidden;
+  }
+  .destinations .section-header {
+    padding: 0 2rem;
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+  }
+  .dest-scroll {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 2rem 1.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dest-scroll::-webkit-scrollbar { height: 6px; }
+  .dest-scroll::-webkit-scrollbar-track { background: transparent; }
+  .dest-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .dest-card {
+    flex: 0 0 180px;
+    scroll-snap-align: start;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    height: 220px;
+    cursor: default;
+    transition: transform 0.2s;
+  }
+  .dest-card:hover {
+    transform: translateY(-4px);
+  }
+  .dest-card .dest-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s;
+  }
+  .dest-card:hover .dest-bg {
+    transform: scale(1.05);
+  }
+  .dest-card .dest-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 30%, rgba(0,0,0,0.65) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.2rem;
+  }
+  .dest-card .dest-name {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+  }
+  .dest-card .dest-detail {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 0.2rem;
+    letter-spacing: 0.02em;
+  }
+  .dest-card .dest-tag {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .dest-tag-live {
+    background: var(--green);
+    color: white;
+  }
+  .dest-tag-planned {
+    background: var(--gold);
+    color: white;
+  }
+  .dest-tag-proposed {
+    background: rgba(255,255,255,0.9);
+    color: var(--gold);
+  }
+
+  /* Gradient backgrounds for destination cards */
+  .bg-miami { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #c44569 100%); }
+  .bg-mia-intl { background: linear-gradient(135deg, #6c5ce7 0%, #a55eea 50%, #8854d0 100%); }
+  .bg-ftl { background: linear-gradient(135deg, #00b894 0%, #00cec9 50%, #0984e3 100%); }
+  .bg-wpalm { background: linear-gradient(135deg, #fdcb6e 0%, #f39c12 50%, #e67e22 100%); }
+  .bg-cruises { background: linear-gradient(135deg, #0984e3 0%, #6c5ce7 50%, #a29bfe 100%); }
+  .bg-cape { background: linear-gradient(135deg, #2d3436 0%, #636e72 30%, #fd79a8 100%); }
+  .bg-mco { background: linear-gradient(135deg, #00b894 0%, #55a88b 50%, #2d6a4f 100%); }
+  .bg-disney { background: linear-gradient(135deg, #6c5ce7 0%, #e84393 50%, #fd79a8 100%); }
+  .bg-tampa { background: linear-gradient(135deg, #0984e3 0%, #74b9ff 50%, #a29bfe 100%); }
+  .bg-ocala { background: linear-gradient(135deg, #55a88b 0%, #2d8659 50%, #1a5e3f 100%); }
+  .bg-gainesville { background: linear-gradient(135deg, #e67e22 0%, #f39c12 50%, #fdcb6e 100%); }
 
   /* ===== ROUTE MAP ===== */
   .route {
@@ -362,7 +434,6 @@
     background: var(--gold-light);
     color: var(--gold);
   }
-  /* Connector line behind stops */
   .route-stops::before {
     content: '';
     position: absolute;
@@ -460,18 +531,6 @@
     font-size: 0.9rem;
     color: var(--text-light);
     line-height: 1.65;
-  }
-
-  /* ===== PHOTO BREAK ===== */
-  .photo-break {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0;
-    height: 300px;
-    overflow: hidden;
-  }
-  .photo-break .photo-placeholder {
-    min-height: 300px;
   }
 
   /* ===== SIGNUP ===== */
@@ -671,12 +730,11 @@
     flex-wrap: wrap;
     gap: 1rem;
   }
-  .footer-brand {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 700;
-    color: var(--green);
+  .footer-logo img {
+    height: 28px;
+    width: auto;
+    opacity: 0.7;
   }
-  .footer-brand span { color: var(--text); }
   footer p {
     font-size: 0.78rem;
     color: var(--text-muted);
@@ -703,15 +761,15 @@
       transform: rotate(90deg);
       height: 40px;
     }
+    .contrast-card { min-height: 260px; }
     .why-grid { grid-template-columns: 1fr; }
     .signup-layout { grid-template-columns: 1fr; gap: 2rem; }
     .stats-row { grid-template-columns: 1fr 1fr; }
     .route-stops { flex-wrap: wrap; gap: 1.5rem; }
     .route-stops::before, .route-stops::after { display: none; }
-    .photo-break { grid-template-columns: 1fr; height: auto; }
-    .photo-break .photo-placeholder { min-height: 200px; }
     .nav-links a:not(.nav-cta) { display: none; }
     .form-row { grid-template-columns: 1fr; }
+    .dest-card { flex: 0 0 150px; height: 190px; }
   }
 </style>
 </head>
@@ -720,7 +778,9 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">Rail to <span>Gainesville</span></a>
+    <a href="#" class="nav-logo">
+      <img src="images/RTG_Logo.png" alt="Rail to Gainesville">
+    </a>
     <div class="nav-links">
       <a href="#route">The Route</a>
       <a href="#why">Why It Works</a>
@@ -744,12 +804,7 @@
     </div>
   </div>
   <div class="hero-image">
-    <!-- REPLACE: Brightline train at platform, bright daylight, modern station -->
-    <!-- Storyblocks search: "Brightline train Florida" or "modern passenger train station platform" -->
-    <div class="photo-placeholder ph-train">
-      <span class="ph-label">Replace with photo</span>
-      <span class="ph-desc">Brightline train at Orlando station, bright daylight shot from platform level</span>
-    </div>
+    <img src="images/RTG_Exterior.jpg" alt="Brightline train in Florida" loading="eager">
   </div>
 </section>
 
@@ -759,12 +814,7 @@
     <div class="contrast-label">Same trip. Two experiences.</div>
     <div class="contrast-grid">
       <div class="contrast-card">
-        <!-- REPLACE: People relaxing on train, reading, working on laptop -->
-        <!-- Storyblocks: "passengers relaxing train interior" or "business travel comfortable train" -->
-        <div class="photo-placeholder ph-interior">
-          <span class="ph-label">Replace with photo</span>
-          <span class="ph-desc">Passengers relaxing on a modern train: reading, working on a laptop, chatting. Warm natural light.</span>
-        </div>
+        <img src="images/RTG_Relaxing.jpg" alt="Relaxing on a train" loading="lazy">
         <div class="card-overlay">
           <div class="card-time">~1 hour</div>
           <div class="card-desc">Relax, work, or just watch Florida go by</div>
@@ -776,16 +826,110 @@
       </div>
 
       <div class="contrast-card">
-        <!-- REPLACE: Florida highway traffic, I-75 congestion, frustrated drivers -->
-        <!-- Storyblocks: "highway traffic congestion Florida" or "cars stuck traffic interstate" -->
-        <div class="photo-placeholder ph-traffic">
-          <span class="ph-label">Replace with photo</span>
-          <span class="ph-desc">Bumper-to-bumper traffic on I-75, construction zones, brake lights stretching to the horizon</span>
-        </div>
+        <img src="images/RTG_traffic.jpg" alt="Frustrated driver in traffic" loading="lazy">
         <div class="card-overlay">
           <div class="card-time">2+ hours</div>
           <div class="card-desc">Construction, tolls, road rage, and $4 gas</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS CONNECTED -->
+<section class="destinations">
+  <div class="section-header">
+    <div class="label">Where Gainesville connects</div>
+    <h2>One train ride to all of this.</h2>
+    <p>From Miami to Gainesville, Brightline would link you to airports, theme parks, cruises, beaches, and more&mdash;without ever touching I-75 or the Turnpike.</p>
+  </div>
+  <div class="dest-scroll">
+    <div class="dest-card">
+      <div class="dest-bg bg-miami"></div>
+      <span class="dest-tag dest-tag-live">Live</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Miami</div>
+        <div class="dest-detail">Wynwood, Brickell, South Beach</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-mia-intl"></div>
+      <span class="dest-tag dest-tag-live">Live</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Miami Intl Airport</div>
+        <div class="dest-detail">MIA &middot; International flights</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-ftl"></div>
+      <span class="dest-tag dest-tag-live">Live</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Ft. Lauderdale</div>
+        <div class="dest-detail">Beaches, FLL airport</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-cruises"></div>
+      <span class="dest-tag dest-tag-live">Live</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Cruise Ports</div>
+        <div class="dest-detail">Port Miami, Port Everglades, Port Canaveral</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-wpalm"></div>
+      <span class="dest-tag dest-tag-live">Live</span>
+      <div class="dest-overlay">
+        <div class="dest-name">West Palm Beach</div>
+        <div class="dest-detail">CityPlace, PBI airport</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-cape"></div>
+      <span class="dest-tag dest-tag-live">Nearby</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Cape Canaveral</div>
+        <div class="dest-detail">Kennedy Space Center, launches</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-mco"></div>
+      <span class="dest-tag dest-tag-live">Live</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Orlando MCO</div>
+        <div class="dest-detail">Airport &middot; 50M+ passengers/yr</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-disney"></div>
+      <span class="dest-tag dest-tag-planned">Planned</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Disney Springs</div>
+        <div class="dest-detail">Theme parks, I-Drive corridor</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-tampa"></div>
+      <span class="dest-tag dest-tag-planned">Planned</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Tampa</div>
+        <div class="dest-detail">Ybor City, TPA airport</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-ocala"></div>
+      <span class="dest-tag dest-tag-proposed">Proposed</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Ocala</div>
+        <div class="dest-detail">Horse country, The Villages</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-bg bg-gainesville"></div>
+      <span class="dest-tag dest-tag-proposed">Proposed</span>
+      <div class="dest-overlay">
+        <div class="dest-name">Gainesville</div>
+        <div class="dest-detail">UF, innovation hub, your stop</div>
       </div>
     </div>
   </div>
@@ -857,7 +1001,7 @@
     </div>
     <div class="stat-item">
       <div class="stat-num">75%</div>
-      <div class="stat-label">less CO2 per rider vs. driving</div>
+      <div class="stat-label">less CO₂ per rider vs. driving</div>
     </div>
   </div>
 </section>
@@ -901,24 +1045,6 @@
     </div>
   </div>
 </section>
-
-<!-- PHOTO BREAK -->
-<div class="photo-break">
-  <!-- REPLACE with 3 wide photos: UF campus, Paynes Prairie nature, Ocala horse country -->
-  <!-- Storyblocks: "University of Florida campus" / "Florida prairie nature landscape" / "Ocala horse farms" -->
-  <div class="photo-placeholder ph-campus">
-    <span class="ph-label">Replace</span>
-    <span class="ph-desc">UF campus, Century Tower, or The Swamp on game day</span>
-  </div>
-  <div class="photo-placeholder ph-nature">
-    <span class="ph-label">Replace</span>
-    <span class="ph-desc">Paynes Prairie or Florida nature preserve, wildlife, green landscape</span>
-  </div>
-  <div class="photo-placeholder ph-ocala">
-    <span class="ph-label">Replace</span>
-    <span class="ph-desc">Ocala horse country, rolling green hills, or downtown Ocala square</span>
-  </div>
-</div>
 
 <!-- SIGNUP -->
 <section class="signup" id="signup">
@@ -996,6 +1122,7 @@
             <option value="ocala-resident">Ocala / Marion County</option>
             <option value="villages">The Villages</option>
             <option value="orlando">Orlando area</option>
+            <option value="south-fl">South Florida</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -1025,14 +1152,16 @@
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">Rail to <span>Gainesville</span></div>
-      <p>A community advocacy initiative. Not affiliated with Brightline, FDOT, or any government agency.</p>
+      <div class="footer-logo">
+        <img src="images/RTG_Logo.png" alt="Rail to Gainesville">
+      </div>
+      <p style="margin-top:0.5rem;">A community advocacy initiative. Not affiliated with Brightline, FDOT, or any government agency.</p>
     </div>
-    <p><a href="/cdn-cgi/l/email-protection#a2cac7cececde2d0c3cbced6cdc5c3cbccc7d1d4cbcecec78cc1cdcf"><span class="__cf_email__" data-cfemail="1f777a7373705f6d7e76736b70787e76717a6c697673737a317c7072">[email&#160;protected]</span></a></p>
+    <p><a href="mailto:hello@railtogainesville.org">hello@railtogainesville.org</a></p>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 document.getElementById('demandForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -1064,4 +1193,14 @@ document.getElementById('demandForm').addEventListener('submit', function(e) {
 });
 
 function copyLink() {
-  navigator.clipboard.writ
+  navigator.clipboard.writeText(window.location.href).then(function() {
+    document.getElementById('shareCopy').textContent = 'Copied!';
+    setTimeout(function() {
+      document.getElementById('shareCopy').textContent = 'Copy link';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
