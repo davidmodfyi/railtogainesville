@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rail to Gainesville</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a7a4c;
+    --green-light: #e8f5ee;
+    --green-dark: #145e3b;
+    --gold: #d4920b;
+    --gold-light: #fef7e6;
+    --sand: #faf8f4;
+    --warm-white: #ffffff;
+    --text: #2c2c2c;
+    --text-light: #636363;
+    --text-muted: #909090;
+    --border: #e5e1da;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--green);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green) !important;
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green-dark) !important; }
+
+  /* ===== HERO ===== */
+  .hero {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 85vh;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4rem 2rem;
+    align-items: center;
+    gap: 3rem;
+  }
+  .hero-text h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+  }
+  .hero-text h1 .highlight {
+    color: var(--green);
+  }
+  .hero-text p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.8rem;
+    background: var(--green);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.8rem;
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .hero-image {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+  }
+  /* Photo placeholder system */
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+    color: #fff;
+    position: relative;
+  }
+  .photo-placeholder .ph-label {
+    background: rgba(0,0,0,0.4);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .photo-placeholder .ph-desc {
+    font-size: 0.85rem;
+    max-width: 280px;
+    line-height: 1.4;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .ph-train {
+    background: linear-gradient(135deg, #3a7bd5 0%, #1a5276 60%, #0e3d54 100%);
+  }
+  .ph-interior {
+    background: linear-gradient(135deg, #e8c170 0%, #c49a3a 50%, #8b6914 100%);
+  }
+  .ph-traffic {
+    background: linear-gradient(135deg, #c0392b 0%, #96281b 60%, #6b1c13 100%);
+  }
+  .ph-campus {
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 50%, #145a32 100%);
+  }
+  .ph-nature {
+    background: linear-gradient(135deg, #52b788 0%, #2d6a4f 50%, #1b4332 100%);
+  }
+  .ph-ocala {
+    background: linear-gradient(135deg, #87CEEB 0%, #4a90a4 50%, #2c6e7a 100%);
+  }
+
+  /* ===== CONTRAST STRIP ===== */
+  .contrast {
+    background: var(--sand);
+    padding: 5rem 2rem;
+  }
+  .contrast-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .contrast-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.5rem;
+  }
+  .contrast-grid {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 2rem;
+    align-items: stretch;
+  }
+  .contrast-card {
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .contrast-card .photo-placeholder {
+    min-height: 320px;
+  }
+  .contrast-card .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+  .contrast-card .card-time {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: white;
+  }
+  .contrast-card .card-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    margin-top: 0.2rem;
+  }
+  .contrast-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contrast-vs span {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ===== ROUTE MAP ===== */
+  .route {
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-header {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+  .section-header .label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.6rem;
+  }
+  .section-header h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+  }
+  .section-header p {
+    font-size: 1rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  .route-stops {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+    padding: 0 1rem;
+  }
+  .route-stop {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  .stop-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--green);
+    margin: 0 auto 0.8rem;
+    position: relative;
+    z-index: 2;
+  }
+  .stop-dot.existing { background: var(--green); }
+  .stop-dot.planned {
+    background: white;
+    border: 3px solid var(--gold);
+  }
+  .route-stop .stop-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .route-stop .stop-detail {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .route-stop .stop-tag {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .tag-live {
+    background: var(--green-light);
+    color: var(--green);
+  }
+  .tag-proposed {
+    background: var(--gold-light);
+    color: var(--gold);
+  }
+  /* Connector line behind stops */
+  .route-stops::before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--green);
+    z-index: 1;
+  }
+  .route-stops::after {
+    content: '';
+    position: absolute;
+    top: 9px;
+    left: 55%;
+    right: 10%;
+    height: 2px;
+    border-top: 2px dashed var(--gold);
+    background: none;
+    z-index: 1;
+  }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 3rem;
+  }
+  .stat-item {
+    background: white;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+  }
+  .stat-item .stat-num {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+  }
+  .stat-item .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: 0.4rem;
+    line-height: 1.4;
+  }
+
+  /* ===== WHY SECTION ===== */
+  .why {
+    background: var(--sand);
+    padding: 5rem 2rem;
+  }
+  .why-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .why-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .why-card:hover { border-color: var(--green); }
+  .why-card .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .icon-green { background: var(--green-light); }
+  .icon-gold { background: var(--gold-light); }
+  .why-card h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .why-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.65;
+  }
+
+  /* ===== PHOTO BREAK ===== */
+  .photo-break {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    height: 300px;
+    overflow: hidden;
+  }
+  .photo-break .photo-placeholder {
+    min-height: 300px;
+  }
+
+  /* ===== SIGNUP ===== */
+  .signup {
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .signup-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .signup-text .counter-block {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--green-light);
+    border-radius: 10px;
+  }
+  .counter-block .counter-num {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+  }
+  .counter-block .counter-label {
+    font-size: 0.9rem;
+    color: var(--green-dark);
+    margin-top: 0.3rem;
+  }
+  .signup-text blockquote {
+    margin-top: 2rem;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--gold);
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+  .signup-text cite {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .form-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+  }
+  .form-card h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .form-card .form-sub {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    margin-bottom: 1.8rem;
+    line-height: 1.5;
+  }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  input, select {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input::placeholder { color: #bbb; }
+  input:focus, select:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(26,122,76,0.08);
+  }
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23909090' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    padding-right: 2.5rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 0.5rem;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+  }
+  .form-fine {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .form-success .check-circle {
+    width: 52px; height: 52px;
+    background: var(--green-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--green);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .form-success h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .form-success p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+  .share-buttons {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 1.2rem;
+  }
+  .share-btn {
+    padding: 0.5rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: white;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .share-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--sand);
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-brand {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .footer-brand span { color: var(--text); }
+  footer p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  footer a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 5rem;
+      gap: 2rem;
+    }
+    .hero-image { max-height: 300px; }
+    .contrast-grid {
+      grid-template-columns: 1fr;
+    }
+    .contrast-vs {
+      transform: rotate(90deg);
+      height: 40px;
+    }
+    .why-grid { grid-template-columns: 1fr; }
+    .signup-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .route-stops { flex-wrap: wrap; gap: 1.5rem; }
+    .route-stops::before, .route-stops::after { display: none; }
+    .photo-break { grid-template-columns: 1fr; height: auto; }
+    .photo-break .photo-placeholder { min-height: 200px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Rail to <span>Gainesville</span></a>
+    <div class="nav-links">
+      <a href="#route">The Route</a>
+      <a href="#why">Why It Works</a>
+      <a href="#signup" class="nav-cta">Sign Up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="margin-top:60px;">
+  <div class="hero-text">
+    <h1>Bring <span class="highlight">Brightline</span> to Gainesville.</h1>
+    <p>
+      High-speed rail from Orlando to Gainesville in about an hour.
+      No traffic. No toll roads. No white-knuckle merging on I-75.
+      Just 115 miles of track through the heart of Florida.
+    </p>
+    <div class="hero-buttons">
+      <a href="#signup" class="btn-primary">Add your name</a>
+      <a href="#route" class="btn-secondary">See the route</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <!-- REPLACE: Brightline train at platform, bright daylight, modern station -->
+    <!-- Storyblocks search: "Brightline train Florida" or "modern passenger train station platform" -->
+    <div class="photo-placeholder ph-train">
+      <span class="ph-label">Replace with photo</span>
+      <span class="ph-desc">Brightline train at Orlando station, bright daylight shot from platform level</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRAST: TRAIN vs TRAFFIC -->
+<section class="contrast">
+  <div class="contrast-inner">
+    <div class="contrast-label">Same trip. Two experiences.</div>
+    <div class="contrast-grid">
+      <div class="contrast-card">
+        <!-- REPLACE: People relaxing on train, reading, working on laptop -->
+        <!-- Storyblocks: "passengers relaxing train interior" or "business travel comfortable train" -->
+        <div class="photo-placeholder ph-interior">
+          <span class="ph-label">Replace with photo</span>
+          <span class="ph-desc">Passengers relaxing on a modern train: reading, working on a laptop, chatting. Warm natural light.</span>
+        </div>
+        <div class="card-overlay">
+          <div class="card-time">~1 hour</div>
+          <div class="card-desc">Relax, work, or just watch Florida go by</div>
+        </div>
+      </div>
+
+      <div class="contrast-vs">
+        <span>or</span>
+      </div>
+
+      <div class="contrast-card">
+        <!-- REPLACE: Florida highway traffic, I-75 congestion, frustrated drivers -->
+        <!-- Storyblocks: "highway traffic congestion Florida" or "cars stuck traffic interstate" -->
+        <div class="photo-placeholder ph-traffic">
+          <span class="ph-label">Replace with photo</span>
+          <span class="ph-desc">Bumper-to-bumper traffic on I-75, construction zones, brake lights stretching to the horizon</span>
+        </div>
+        <div class="card-overlay">
+          <div class="card-time">2+ hours</div>
+          <div class="card-desc">Construction, tolls, road rage, and $4 gas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE MAP -->
+<section class="route" id="route">
+  <div class="section-header">
+    <div class="label">The proposed corridor</div>
+    <h2>Orlando to Gainesville, with a stop in Ocala</h2>
+    <p>
+      The route follows the natural I-75 corridor through flat central Florida terrain.
+      Existing freight rail infrastructure in the region provides a foundation.
+      Brightline is already expanding to Tampa on I-4. This is the logical next step north.
+    </p>
+  </div>
+
+  <div class="route-stops">
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">Miami</div>
+      <div class="stop-detail">Existing service</div>
+      <span class="stop-tag tag-live">Live</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">Ft. Lauderdale</div>
+      <div class="stop-detail">Existing service</div>
+      <span class="stop-tag tag-live">Live</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">West Palm Beach</div>
+      <div class="stop-detail">Existing service</div>
+      <span class="stop-tag tag-live">Live</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">Orlando MCO</div>
+      <div class="stop-detail">Existing service</div>
+      <span class="stop-tag tag-live">Live</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot planned"></div>
+      <div class="stop-name">Ocala</div>
+      <div class="stop-detail">Proposed stop</div>
+      <span class="stop-tag tag-proposed">Proposed</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot planned"></div>
+      <div class="stop-name">Gainesville</div>
+      <div class="stop-detail">Proposed terminus</div>
+      <span class="stop-tag tag-proposed">Proposed</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">115</div>
+      <div class="stat-label">miles, Orlando to Gainesville</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">900K+</div>
+      <div class="stat-label">people in the corridor</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">56,000</div>
+      <div class="stat-label">UF students, 3rd largest in the US</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">75%</div>
+      <div class="stat-label">less CO2 per rider vs. driving</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="section-header">
+      <div class="label">Why this makes sense</div>
+      <h2>Good for people. Good for the economy. Good for Florida.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="card-icon icon-green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>A built-in ridership base unlike any other</h3>
+        <p>UF enrolls 56,000 students from across Florida, most traveling to and from Orlando regularly. Add 300,000+ Florida-based alumni, 600,000 annual football fans, and tens of thousands of campus visitors. This corridor has guaranteed, recurring demand from day one.</p>
+      </div>
+      <div class="why-card">
+        <div class="card-icon icon-gold">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4920b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Ocala and The Villages are growing fast</h3>
+        <p>Marion County's metro area has nearly 400,000 people and is among the fastest-growing in the country. The Villages adds thousands of residents every year. These communities need reliable connections to Orlando's airport, medical centers, and economy.</p>
+      </div>
+      <div class="why-card">
+        <div class="card-icon icon-green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a7a4c" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Cleaner air and less highway sprawl</h3>
+        <p>Every rider on Brightline is one fewer car on I-75. Rail produces 75% less carbon dioxide per passenger mile than driving. As Florida's population grows, building rail now prevents decades of highway expansion, land consumption, and emissions.</p>
+      </div>
+      <div class="why-card">
+        <div class="card-icon icon-gold">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4920b" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+        </div>
+        <h3>Brightline is already proving the model</h3>
+        <p>Brightline carried 2.8 million riders in 2024 and is actively expanding to Tampa. They've built 235 miles of service in Florida, issued hundreds of millions in bonds, and secured billions in federal support. The playbook exists. Gainesville just needs to be next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO BREAK -->
+<div class="photo-break">
+  <!-- REPLACE with 3 wide photos: UF campus, Paynes Prairie nature, Ocala horse country -->
+  <!-- Storyblocks: "University of Florida campus" / "Florida prairie nature landscape" / "Ocala horse farms" -->
+  <div class="photo-placeholder ph-campus">
+    <span class="ph-label">Replace</span>
+    <span class="ph-desc">UF campus, Century Tower, or The Swamp on game day</span>
+  </div>
+  <div class="photo-placeholder ph-nature">
+    <span class="ph-label">Replace</span>
+    <span class="ph-desc">Paynes Prairie or Florida nature preserve, wildlife, green landscape</span>
+  </div>
+  <div class="photo-placeholder ph-ocala">
+    <span class="ph-label">Replace</span>
+    <span class="ph-desc">Ocala horse country, rolling green hills, or downtown Ocala square</span>
+  </div>
+</div>
+
+<!-- SIGNUP -->
+<section class="signup" id="signup">
+  <div class="signup-layout">
+    <div class="signup-text">
+      <div class="section-header">
+        <div class="label">Take action</div>
+        <h2>Add your name. Show them the demand is real.</h2>
+        <p>
+          Every signup is a data point that makes this harder to ignore.
+          We share aggregated, anonymized zip code and ridership data
+          with transit planners, elected officials, and Brightline directly.
+        </p>
+      </div>
+
+      <div class="counter-block">
+        <div class="counter-num" id="counterNum">0</div>
+        <div class="counter-label">people have signed up so far</div>
+      </div>
+
+      <blockquote>
+        "We see many other opportunities to expand this around the country.
+        Florida is the start of this business."
+        <cite>Brightline CEO, October 2021</cite>
+      </blockquote>
+    </div>
+
+    <div class="form-card">
+      <h3>Sign up</h3>
+      <p class="form-sub">Takes 30 seconds. Your zip code is the most important field.</p>
+
+      <form id="demandForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" placeholder="Doe" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="jane@example.com" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="zip">Zip code</label>
+            <input type="text" id="zip" placeholder="32601" pattern="[0-9]{5}" maxlength="5" required>
+          </div>
+          <div class="form-group">
+            <label for="frequency">How often would you ride?</label>
+            <select id="frequency" required>
+              <option value="" disabled selected>Select</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">A few times a month</option>
+              <option value="occasionally">A few times a year</option>
+              <option value="gamedays">Game days and events</option>
+              <option value="consider">I'd consider it</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="connection">Your connection (optional)</label>
+          <select id="connection">
+            <option value="">Select</option>
+            <option value="uf-student">UF student</option>
+            <option value="uf-staff">UF faculty or staff</option>
+            <option value="uf-alumni">UF alumni</option>
+            <option value="gnv-resident">Gainesville resident</option>
+            <option value="ocala-resident">Ocala / Marion County</option>
+            <option value="villages">The Villages</option>
+            <option value="orlando">Orlando area</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <button type="submit" class="submit-btn">Count me in</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div class="check-circle">&#10003;</div>
+        <h3>You're on the list.</h3>
+        <p>We'll send updates on milestones and ways to help push this forward.</p>
+        <div class="share-buttons">
+          <a class="share-btn" id="shareTwitter" href="#" target="_blank">Share on X</a>
+          <button class="share-btn" id="shareCopy" onclick="copyLink()">Copy link</button>
+        </div>
+      </div>
+
+      <p class="form-fine">
+        Your email is only used for campaign updates. Zip code data is
+        aggregated and anonymized for advocacy purposes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Rail to <span>Gainesville</span></div>
+      <p>A community advocacy initiative. Not affiliated with Brightline, FDOT, or any government agency.</p>
+    </div>
+    <p><a href="/cdn-cgi/l/email-protection#a2cac7cececde2d0c3cbced6cdc5c3cbccc7d1d4cbcecec78cc1cdcf"><span class="__cf_email__" data-cfemail="1f777a7373705f6d7e76736b70787e76717a6c697673737a317c7072">[email&#160;protected]</span></a></p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.getElementById('demandForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const data = {
+    firstName: document.getElementById('firstName').value,
+    lastName: document.getElementById('lastName').value,
+    email: document.getElementById('email').value,
+    zip: document.getElementById('zip').value,
+    frequency: document.getElementById('frequency').value,
+    connection: document.getElementById('connection').value,
+    timestamp: new Date().toISOString()
+  };
+
+  console.log('Signup:', data);
+
+  // TODO: Replace with your backend
+  // Option A: Swap form for a Tally.so embed
+  // Option B: fetch('/api/signup', { method: 'POST', body: JSON.stringify(data) })
+
+  this.style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+
+  const counter = document.getElementById('counterNum');
+  counter.textContent = (parseInt(counter.textContent) + 1).toLocaleString();
+
+  const text = encodeURIComponent('I signed up to bring Brightline high-speed rail to Gainesville, FL. Add your name:');
+  const url = encodeURIComponent(window.location.href);
+  document.getElementById('shareTwitter').href = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url;
+});
+
+function copyLink() {
+  navigator.clipboard.writ
