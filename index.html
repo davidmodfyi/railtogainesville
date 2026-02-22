@@ -9,6 +9,9 @@
 <meta property="og:description" content="High-speed rail from Orlando to Gainesville in about an hour. No traffic. No tolls. Just 115 miles of track.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://railtogainesville.org">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -55,7 +58,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 60px;
+    height: 72px;
   }
   .nav-logo {
     display: flex;
@@ -63,7 +66,7 @@
     text-decoration: none;
   }
   .nav-logo img {
-    height: 36px;
+    height: 54px;
     width: auto;
   }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
@@ -87,7 +90,7 @@
 
   /* ===== HERO ===== */
   .hero {
-    margin-top: 60px;
+    margin-top: 72px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 85vh;
@@ -286,6 +289,16 @@
     background-position: center;
     transition: transform 0.4s;
   }
+  .dest-card .dest-bg::after {
+    content: attr(data-icon);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    font-size: 3.5rem;
+    opacity: 0.7;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  }
   .dest-card:hover .dest-bg {
     transform: scale(1.05);
   }
@@ -448,11 +461,11 @@
     content: '';
     position: absolute;
     top: 9px;
-    left: 55%;
-    right: 10%;
+    left: 10%;
+    right: 75%;
     height: 2px;
     border-top: 2px dashed var(--gold);
-    background: none;
+    background: var(--sand);
     z-index: 1;
   }
 
@@ -790,7 +803,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero" style="margin-top:60px;">
+<section class="hero" style="margin-top:72px;">
   <div class="hero-text">
     <h1>Bring <span class="highlight">Brightline</span> to Gainesville.</h1>
     <p>
@@ -817,7 +830,7 @@
         <img src="images/RTG_Relaxing.jpg" alt="Relaxing on a train" loading="lazy">
         <div class="card-overlay">
           <div class="card-time">~1 hour</div>
-          <div class="card-desc">Relax, work, or just watch Florida go by</div>
+          <div class="card-desc">Imagine your family relaxing for 1 hour&mdash;then you're at Disney, Orlando International, or Port Canaveral</div>
         </div>
       </div>
 
@@ -829,12 +842,19 @@
         <img src="images/RTG_traffic.jpg" alt="Frustrated driver in traffic" loading="lazy">
         <div class="card-overlay">
           <div class="card-time">2+ hours</div>
-          <div class="card-desc">Construction, tolls, road rage, and $4 gas</div>
+          <div class="card-desc">Traffic, tolls, construction, parking, and <em>deadly</em> accidents</div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- CALLOUT -->
+<div style="background:var(--warm-white);padding:3.5rem 2rem;text-align:center;">
+  <p style="max-width:720px;margin:0 auto;font-family:'Source Serif 4',serif;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:400;color:var(--text);line-height:1.5;">
+    Take the 6 AM train to Miami. Sleep the whole way. Arrive at 9:30 AM, <em style="color:var(--green);">fully rested.</em>
+  </p>
+</div>
 
 <!-- DESTINATIONS CONNECTED -->
 <section class="destinations">
@@ -845,7 +865,7 @@
   </div>
   <div class="dest-scroll">
     <div class="dest-card">
-      <div class="dest-bg bg-miami"></div>
+      <div class="dest-bg bg-miami" data-icon="🌴"></div>
       <span class="dest-tag dest-tag-live">Live</span>
       <div class="dest-overlay">
         <div class="dest-name">Miami</div>
@@ -853,7 +873,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-mia-intl"></div>
+      <div class="dest-bg bg-mia-intl" data-icon="✈️"></div>
       <span class="dest-tag dest-tag-live">Live</span>
       <div class="dest-overlay">
         <div class="dest-name">Miami Intl Airport</div>
@@ -861,7 +881,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-ftl"></div>
+      <div class="dest-bg bg-ftl" data-icon="🏖️"></div>
       <span class="dest-tag dest-tag-live">Live</span>
       <div class="dest-overlay">
         <div class="dest-name">Ft. Lauderdale</div>
@@ -869,7 +889,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-cruises"></div>
+      <div class="dest-bg bg-cruises" data-icon="🚢"></div>
       <span class="dest-tag dest-tag-live">Live</span>
       <div class="dest-overlay">
         <div class="dest-name">Cruise Ports</div>
@@ -877,7 +897,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-wpalm"></div>
+      <div class="dest-bg bg-wpalm" data-icon="🌅"></div>
       <span class="dest-tag dest-tag-live">Live</span>
       <div class="dest-overlay">
         <div class="dest-name">West Palm Beach</div>
@@ -885,7 +905,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-cape"></div>
+      <div class="dest-bg bg-cape" data-icon="🚀"></div>
       <span class="dest-tag dest-tag-live">Nearby</span>
       <div class="dest-overlay">
         <div class="dest-name">Cape Canaveral</div>
@@ -893,15 +913,15 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-mco"></div>
+      <div class="dest-bg bg-mco" data-icon="🛫"></div>
       <span class="dest-tag dest-tag-live">Live</span>
       <div class="dest-overlay">
-        <div class="dest-name">Orlando MCO</div>
-        <div class="dest-detail">Airport &middot; 50M+ passengers/yr</div>
+        <div class="dest-name">Orlando International</div>
+        <div class="dest-detail">MCO &middot; 50M+ passengers/yr</div>
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-disney"></div>
+      <div class="dest-bg bg-disney" data-icon="🏰"></div>
       <span class="dest-tag dest-tag-planned">Planned</span>
       <div class="dest-overlay">
         <div class="dest-name">Disney Springs</div>
@@ -909,7 +929,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-tampa"></div>
+      <div class="dest-bg bg-tampa" data-icon="⚡"></div>
       <span class="dest-tag dest-tag-planned">Planned</span>
       <div class="dest-overlay">
         <div class="dest-name">Tampa</div>
@@ -917,7 +937,7 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-ocala"></div>
+      <div class="dest-bg bg-ocala" data-icon="🐴"></div>
       <span class="dest-tag dest-tag-proposed">Proposed</span>
       <div class="dest-overlay">
         <div class="dest-name">Ocala</div>
@@ -925,11 +945,11 @@
       </div>
     </div>
     <div class="dest-card">
-      <div class="dest-bg bg-gainesville"></div>
+      <div class="dest-bg bg-gainesville" data-icon="🐊"></div>
       <span class="dest-tag dest-tag-proposed">Proposed</span>
       <div class="dest-overlay">
         <div class="dest-name">Gainesville</div>
-        <div class="dest-detail">UF, innovation hub, your stop</div>
+        <div class="dest-detail">UF, Gator Games, <b><i>HOME</i></b></div>
       </div>
     </div>
   </div>
@@ -939,18 +959,48 @@
 <section class="route" id="route">
   <div class="section-header">
     <div class="label">The proposed corridor</div>
-    <h2>Orlando to Gainesville, with a stop in Ocala</h2>
+    <h2>From Gainesville, all of Florida opens up</h2>
     <p>
-      The route follows the natural I-75 corridor through flat central Florida terrain.
-      Existing freight rail infrastructure in the region provides a foundation.
+      The proposed extension follows the natural I-75 corridor through flat central Florida terrain.
+      From Gainesville, you'd connect to Orlando, the theme parks, the coast, and all the way down to Miami.
       Brightline is already expanding to Tampa on I-4. This is the logical next step north.
     </p>
   </div>
 
   <div class="route-stops">
     <div class="route-stop">
+      <div class="stop-dot planned"></div>
+      <div class="stop-name">Gainesville</div>
+      <div class="stop-detail">Proposed terminus</div>
+      <span class="stop-tag tag-proposed">Proposed</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot planned"></div>
+      <div class="stop-name">Ocala</div>
+      <div class="stop-detail">Proposed stop</div>
+      <span class="stop-tag tag-proposed">Proposed</span>
+    </div>
+    <div class="route-stop">
       <div class="stop-dot existing"></div>
-      <div class="stop-name">Miami</div>
+      <div class="stop-name">Orlando International</div>
+      <div class="stop-detail">Existing service</div>
+      <span class="stop-tag tag-live">Live</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">Disney Springs</div>
+      <div class="stop-detail">Planned station</div>
+      <span class="stop-tag tag-proposed">Planned</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">Port Canaveral</div>
+      <div class="stop-detail">Nearby connection</div>
+      <span class="stop-tag tag-live">Nearby</span>
+    </div>
+    <div class="route-stop">
+      <div class="stop-dot existing"></div>
+      <div class="stop-name">West Palm Beach</div>
       <div class="stop-detail">Existing service</div>
       <span class="stop-tag tag-live">Live</span>
     </div>
@@ -962,34 +1012,16 @@
     </div>
     <div class="route-stop">
       <div class="stop-dot existing"></div>
-      <div class="stop-name">West Palm Beach</div>
+      <div class="stop-name">Miami</div>
       <div class="stop-detail">Existing service</div>
       <span class="stop-tag tag-live">Live</span>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot existing"></div>
-      <div class="stop-name">Orlando MCO</div>
-      <div class="stop-detail">Existing service</div>
-      <span class="stop-tag tag-live">Live</span>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot planned"></div>
-      <div class="stop-name">Ocala</div>
-      <div class="stop-detail">Proposed stop</div>
-      <span class="stop-tag tag-proposed">Proposed</span>
-    </div>
-    <div class="route-stop">
-      <div class="stop-dot planned"></div>
-      <div class="stop-name">Gainesville</div>
-      <div class="stop-detail">Proposed terminus</div>
-      <span class="stop-tag tag-proposed">Proposed</span>
     </div>
   </div>
 
   <div class="stats-row">
     <div class="stat-item">
       <div class="stat-num">115</div>
-      <div class="stat-label">miles, Orlando to Gainesville</div>
+      <div class="stat-label">miles, Gainesville to Orlando</div>
     </div>
     <div class="stat-item">
       <div class="stat-num">900K+</div>
