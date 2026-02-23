@@ -994,10 +994,12 @@
         </p>
       </div>
 
+      <!-- Counter hidden until we have real numbers
       <div class="counter-block">
         <div class="counter-num" id="counterNum">0</div>
         <div class="counter-label">people have signed up so far</div>
       </div>
+      -->
 
       <blockquote>
         "We see many other opportunities to expand this around the country.
@@ -1027,25 +1029,29 @@
           <input type="email" id="email" placeholder="jane@example.com" required>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="zip">Zip code</label>
-            <input type="text" id="zip" placeholder="32601" pattern="[0-9]{5}" maxlength="5" required>
-          </div>
-          <div class="form-group">
-            <label for="frequency">How often would you ride?</label>
-            <select id="frequency" required>
-              <option value="" disabled selected>Select</option>
-              <option value="weekly">One or more times / week</option>
-              <option value="monthly">One or more times / month</option>
-              <option value="yearly">One or more times / year</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label for="zip">Zip code</label>
+          <input type="text" id="zip" placeholder="32601" pattern="[0-9]{5}" maxlength="5" required>
+        </div>
+
+        <div class="form-group">
+          <label for="frequency">How often would you ride?</label>
+          <select id="frequency" required>
+            <option value="" disabled selected>Select</option>
+            <option value="weekly">One or more times / week</option>
+            <option value="monthly">One or more times / month</option>
+            <option value="yearly">One or more times / year</option>
+          </select>
         </div>
 
         <div class="form-group">
           <label for="comments">Anything else? (optional)</label>
           <textarea id="comments" placeholder="UF alumni, Ocala resident, why this matters to you..." rows="3" style="width:100%;padding:0.75rem 0.9rem;border:1.5px solid var(--border);border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;color:var(--text);background:white;outline:none;resize:vertical;transition:border-color 0.2s;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="involved">Want to get involved? We're actively building a determined team. (optional)</label>
+          <textarea id="involved" placeholder="Your skills, availability, ideas..." rows="3" style="width:100%;padding:0.75rem 0.9rem;border:1.5px solid var(--border);border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;color:var(--text);background:white;outline:none;resize:vertical;transition:border-color 0.2s;"></textarea>
         </div>
 
         <button type="submit" class="submit-btn">Count me in</button>
@@ -1087,26 +1093,37 @@ document.getElementById('demandForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
   const data = {
-    firstName: document.getElementById('firstName').value,
-    lastName: document.getElementById('lastName').value,
+    first_name: document.getElementById('firstName').value,
+    last_name: document.getElementById('lastName').value,
     email: document.getElementById('email').value,
     zip: document.getElementById('zip').value,
     frequency: document.getElementById('frequency').value,
     comments: document.getElementById('comments').value,
-    timestamp: new Date().toISOString()
+    involved: document.getElementById('involved').value
   };
 
-  console.log('Signup:', data);
+  // === SUPABASE SUBMISSION ===
+  // Replace these two values with your Supabase project credentials
+  const SUPABASE_URL = 'https://qwjlyqxsdysbajnthged.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_ywjHy0abKBV3ijykqbIwXg_tuvY0vje';
 
-  // TODO: Replace with your backend
-  // Option A: Swap form for a Tally.so embed
-  // Option B: fetch('/api/signup', { method: 'POST', body: JSON.stringify(data) })
+  fetch(SUPABASE_URL + '/rest/v1/signups', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(data)
+  }).then(function(res) {
+    if (!res.ok) console.error('Supabase error:', res.status);
+  }).catch(function(err) {
+    console.error('Submit error:', err);
+  });
 
   this.style.display = 'none';
   document.getElementById('formSuccess').style.display = 'block';
-
-  const counter = document.getElementById('counterNum');
-  counter.textContent = (parseInt(counter.textContent) + 1).toLocaleString();
 
   const text = encodeURIComponent('I signed up to bring Brightline high-speed rail to Gainesville, FL. Add your name:');
   const url = encodeURIComponent(window.location.href);
